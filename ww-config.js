@@ -12,22 +12,11 @@ export default {
     properties: {
         source: {
             label: {
-                en: 'iFrame source'
+                en: 'iFrame source (URL)'
             },
-            type: "Textarea",
-            "options": {
-                "row": 20
-            },
+            type: "Text",
             bindable: true,
             defaultValue: '',
-        },
-        changeSource: {
-            type: 'Button',
-            editorOnly: true,
-            "options": {
-                "text": { "en": "Edit iFrame source", "fr": "Editer la source iFrame" },
-                "action": "editIFrame"
-            }
         }
     }
 }

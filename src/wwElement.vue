@@ -1,17 +1,14 @@
 <template>
     <div ref="iframe" class="ww-iframe" :class="{ isEditing: isEditing }">
-        <iframe v-if="source" class="iframe-holder" :src="source" />
+        <iframe v-if="source.source" class="iframe-holder" :src="source.source" />
         <!-- wwEditor:start -->
+        <div v-else-if="!isValidHttpUrl" class="placeholder">Enter a valid URL</div>
         <div v-else class="placeholder">Edit iFrame source in settings</div>
         <!-- wwEditor:end -->
     </div>
 </template>
 
 <script>
-/* wwEditor:start */
-import { openIFramePopup } from './popups';
-/* wwEditor:end */
-
 export default {
     props: {
         /* wwEditor:start */
@@ -33,61 +30,17 @@ export default {
             // eslint-disable-next-line no-unreachable
             return false;
         },
-        source() {
-            if (this.reset) return null;
-            return this.content.source ? this.content.source : null;
-        },
-        script() {
-            return this.content.script || null;
-        },
-        javascript() {
-            return this.content.javascript || null;
-        },
-    },
-    mounted() {
-        this.init();
-        window.addEventListener('resize', this.reinit);
-    },
-    methods: {
-        async init() {
-            if (this.script) {
-                await this.loadScript();
-            }
-            if (this.javascript) {
-                this.loadJavascript();
-            }
-        },
-        async editIFrame() {
+        isValidHttpUrl() {
+            let url;
+
             try {
-                const result = await openIFramePopup({
-                    source: this.content.source,
-                });
-                this.$emit('update:content', { source: result.source });
-                this.reinit();
-            } catch (err) {
-                wwLib.wwLog.error(err);
+                url = new URL(this.content.source);
+            } catch (_) {
+                return false;
             }
+
+            return url.protocol === 'http:' || url.protocol === 'https:';
         },
-        async loadScript() {
-            await wwLib.wwUtils.addScriptToHead(this.script);
-        },
-        loadJavascript() {
-            try {
-                eval(this.javascript);
-            } catch (error) {
-                wwLib.wwLog.error(error, 'error');
-            }
-        },
-        reinit() {
-            this.reset = true;
-            this.$nextTick(() => {
-                this.reset = false;
-                this.init();
-            });
-        },
-    },
-    beforeUnmounted() {
-        window.removeEventListener('resize', this.reinit);
     },
 };
 </script>
