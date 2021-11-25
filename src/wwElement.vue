@@ -1,6 +1,6 @@
 <template>
     <div ref="iframe" class="ww-iframe" :class="{ isEditing: isEditing }">
-        <iframe v-if="source.source" class="iframe-holder" :src="source.source" />
+        <iframe v-if="content.source" class="iframe-holder" :src="content.source" />
         <!-- wwEditor:start -->
         <div v-else-if="!isValidHttpUrl" class="placeholder">Enter a valid URL</div>
         <div v-else class="placeholder">Edit iFrame source in settings</div>
