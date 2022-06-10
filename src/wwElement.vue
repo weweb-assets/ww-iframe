@@ -1,6 +1,6 @@
 <template>
     <div ref="iframe" class="ww-iframe" :class="{ isEditing: isEditing }">
-        <iframe v-if="source" class="iframe-holder" :src="content.source" />
+        <iframe v-if="source" class="iframe-holder" :src="source" />
         <!-- wwEditor:start -->
         <div v-else class="placeholder">Edit iFrame source in settings</div>
         <!-- wwEditor:end -->
