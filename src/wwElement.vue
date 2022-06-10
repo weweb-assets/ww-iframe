@@ -1,8 +1,7 @@
 <template>
     <div ref="iframe" class="ww-iframe" :class="{ isEditing: isEditing }">
-        <iframe v-if="content.source && isValidHttpUrl" class="iframe-holder" :src="content.source" />
+        <iframe v-if="source" class="iframe-holder" :src="content.source" />
         <!-- wwEditor:start -->
-        <div v-else-if="content.source && !isValidHttpUrl" class="placeholder">Enter a valid URL</div>
         <div v-else class="placeholder">Edit iFrame source in settings</div>
         <!-- wwEditor:end -->
     </div>
@@ -29,6 +28,15 @@ export default {
             /* wwEditor:end */
             // eslint-disable-next-line no-unreachable
             return false;
+        },
+        source(){
+            if(!this.content.source) return false;
+            if(this.isValidHttpUrl){
+                return this.content.source;
+            }
+            else {
+                return `data:text/html;charset=utf-8,${encodeURI(this.content.source)}`;
+            }
         },
         isValidHttpUrl() {
             let url;
