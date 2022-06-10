@@ -39,7 +39,7 @@ export default {
                 return false;
             }
 
-            return url.protocol === 'http:' || url.protocol === 'https:';
+            return url.protocol === 'http:' || url.protocol === 'https:' || url.protocol === 'data:';
         },
     },
 };
