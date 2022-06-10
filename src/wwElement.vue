@@ -35,7 +35,7 @@ export default {
                 return this.content.source;
             }
             else {
-                return `data:text/html;charset=utf-8,${encodeURI(this.content.source)}`;
+                return `data:text/html;charset=utf-8,${encodeURIComponent(this.content.source)}`;
             }
         },
         isValidHttpUrl() {
