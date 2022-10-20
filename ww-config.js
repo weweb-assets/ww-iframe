@@ -7,7 +7,7 @@ export default {
             en: 'iFrame',
             fr: 'iFrame',
         },
-        icon: 'globa-alt',
+        icon: 'global-alt',
     },
     properties: {
         source: {
