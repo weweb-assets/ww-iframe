@@ -7,7 +7,7 @@ export default {
             en: 'iFrame',
             fr: 'iFrame',
         },
-        icon: 'fontawesome/regular/window-maximize',
+        icon: 'globe-alt',
     },
     properties: {
         source: {
