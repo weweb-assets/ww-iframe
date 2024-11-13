@@ -1,5 +1,5 @@
 <template>
-    <div ref="iframe" class="ww-iframe">
+    <div ref="iframe" class="ww-iframe" :class="{ isEditing: isEditing }">
         <iframe v-if="source" class="iframe-holder" :src="source" />
         <!-- wwEditor:start -->
         <div v-else class="placeholder">Edit iFrame source in settings</div>
@@ -10,6 +10,9 @@
 <script>
 export default {
     props: {
+        /* wwEditor:start */
+        wwEditorState: { type: Object, required: true },
+        /* wwEditor:end */
         content: { type: Object, required: true },
     },
     emits: ['update:content'],
@@ -19,6 +22,13 @@ export default {
         };
     },
     computed: {
+        isEditing() {
+            /* wwEditor:start */
+            return this.wwEditorState.editMode === wwLib.wwEditorHelper.EDIT_MODES.EDITION;
+            /* wwEditor:end */
+            // eslint-disable-next-line no-unreachable
+            return false;
+        },
         source(){
             if(!this.content.source) return false;
             if(this.isValidHttpUrl){
@@ -54,6 +64,12 @@ export default {
         border: none;
     }
     /* wwEditor:start */
+    &.isEditing::before {
+        content: ' ';
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+    }
     .placeholder {
         width: 100%;
         height: 100%;
