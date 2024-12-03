@@ -65,7 +65,7 @@ export default {
     }
     /* wwEditor:start */
     &.isEditing::before {
-        content: 'iFrame';
+        content: ' ';
         position: absolute;
         inset: 0;
         z-index: 1;
